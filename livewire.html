@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de ejemplo</title>
+    <!-- Agrega aquí las referencias a tus estilos CSS si es necesario -->
+    <!-- <link rel="stylesheet" href="ruta/a/tu/estilo.css"> -->
+    <!-- Agrega aquí las referencias a las bibliotecas de resaltado de sintaxis -->
+    <link rel="stylesheet" href="highlight/styles/default.min.css">
+    <script defer src="highlight/highlight.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h2,
+        h3 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        pre {
+
+            color: #f4f4f4;
+            padding: 10px;
+            border-radius: 40px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #333;
+        }
+
+        /*Aplicamos la animación a la imagen */
+
+        .rotar-img {
+            animation: bounce .5s infinite;
+
+        }
+
+        .div-walker {
+            animation: slide 4s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+
+            50% {
+                transform: translateY(0);
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+
+        @keyframes slide {
+
+            0%,
+            100% {
+                transform: translateX(0px)
+            }
+
+            50% {
+                transform: translateX(180px)
+            }
+        }
+
+
+        /* Agrega más estilos según tus preferencias */
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("pre code").forEach(function (block) {
+                hljs.highlightBlock(block);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div style="display:flex; justify-content: space-between;">
+        <div>
+            <h1>Comienzo Rápido</h1>
+        </div>
+
+
+        <a href="https://coin-birds.com/?en=Coderman" target="_blank" style="display: flex;
+        flex-direction: column;">
+            <div class="div-walker">
+                <img class="rotar-img" src="images/descarga.jfif" width="80px" alt="¡Obtén ganancias cada 10 minutos!"
+                    style="border-radius: 10px;">
+            </div>
+            ¡Obtén
+            ganancias cada 10 minutos!
+        </a>
+
+    </div>
+
+    <h2>Livewire 3 todavía está en fase beta</h2>
+    <p>Mientras intentamos mantener los cambios disruptivos al mínimo, aún son posibles mientras Livewire 3 permanezca
+        en beta. Por lo tanto, recomendamos probar exhaustivamente tu aplicación antes de usar Livewire 3 en producción.
+    </p>
+
+    <h2>Para comenzar tu experiencia con Livewire</h2>
+    <p>crearemos un simple componente "contador" y lo mostraremos en el navegador. Este ejemplo es una excelente manera
+        de experimentar con Livewire por primera vez, ya que demuestra la capacidad de Livewire de una manera simple y
+        directa.</p>
+
+
+
+    <h3>Prerrequisitos</h3>
+    <p>Antes de comenzar, asegúrate de tener lo siguiente instalado:</p>
+    <ul>
+        <li>Laravel versión 9 o posterior</li>
+        <li>PHP versión 8.1 o posterior</li>
+    </ul>
+
+    <h3>Instalar Livewire</h3>
+    <p>Desde el directorio raíz de tu aplicación Laravel, ejecuta el siguiente comando de Composer:</p>
+    <pre><code class="language-bash">
+composer require livewire/livewire:^3.0@beta
+</code></pre>
+
+    <h3>Crear un componente Livewire</h3>
+    <p>Livewire proporciona un práctico comando Artisan para generar nuevos componentes rápidamente. Ejecuta el
+        siguiente comando para crear un nuevo componente de contador:</p>
+    <pre><code class="language-bash">
+php artisan make:livewire counter
+</code></pre>
+
+    <h3>Escribir la clase</h3>
+    <p>Abre app/Livewire/Counter.php y reemplaza su contenido con lo siguiente:</p>
+    <pre><code class="language-php">
+<?php namespace App\Livewire; use Livewire\Component; class Counter extends Component { public $count = 1; public function increment() { $this->count++; } public function decrement() { $this->count--; } public function render() { return view('livewire.counter'); } }
+</code></pre>
+
+    <h3>Escribir la vista</h3>
+    <p>Abre el archivo resources/views/livewire/counter.blade.php y reemplaza su contenido con lo siguiente:</p>
+    <pre><code class="language-html">
+&lt;div&gt;
+  &lt;h1&gt;{{ $count }}&lt;/h1&gt;
+  &lt;button wire:click="increment"&gt;+&lt;/button&gt;
+  &lt;button wire:click="decrement"&gt;-&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+
+    <h3>Registrar una ruta para el componente</h3>
+    <p>Abre el archivo routes/web.php en tu aplicación Laravel y agrega el siguiente código:</p>
+    <pre><code class="language-php">
+use App\Livewire\Counter; Route::get('/counter', Counter::class);
+</code></pre>
+
+    <h3>Crear una plantilla de diseño</h3>
+    <p>Antes de poder visitar /counter en el navegador, necesitamos un diseño HTML para que nuestro componente se
+        renderice dentro de él. Por defecto, Livewire buscará automáticamente un archivo de diseño llamado
+        resources/views/components/layout.blade.php</p>
+    <p>Si este archivo aún no existe, puedes crearlo ejecutando el siguiente comando:</p>
+    <pre><code class="language-bash">
+php artisan livewire:layout
+</code></pre>
+
+    <p>Este comando generará un archivo llamado resources/views/components/layout.blade.php con el siguiente contenido:
+    </p>
+    <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="{{ str_replace('_', '-', app()->getLocale()) }}"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;{{ $title ?? 'Page Title' }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  {{ $slot }}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+    <p>El componente de contador se renderizará en lugar de la variable $slot en la plantilla anterior.</p>
+    <p>Tal vez hayas notado que Livewire no proporciona activos de JavaScript o CSS. Esto se debe a que Livewire 3 y
+        versiones posteriores inyectan automáticamente los activos frontend que necesita.</p>
+
+    <h3>Prueba el componente</h3>
+    <p>Con nuestra clase y plantillas del componente en su lugar, ¡nuestro componente está listo para ser probado!</p>
+    <p>Visita /counter en tu navegador y deberías ver un número mostrado en la pantalla con dos botones para incrementar
+        y decrementar el número.</p>
+    <p>Después de hacer clic en uno de los botones, notarás que el contador se actualiza en tiempo real sin necesidad de
+        recargar la página. Esto es la magia de Livewire: aplicaciones frontend dinámicas escritas completamente en PHP.
+    </p>
+    <p>Hemos apenas rascado la superficie de lo que Livewire es capaz de hacer. Sigue leyendo la documentación para ver
+        todo lo que Livewire tiene para ofrecer.</p>
+
+
+
+    <h1>Instalación de Livewire</h1>
+    <p>Livewire es un paquete de Laravel, por lo que necesitarás tener una aplicación Laravel en funcionamiento antes de
+        poder instalar y usar Livewire. Si necesitas ayuda para configurar una nueva aplicación Laravel, consulta la
+        documentación oficial de Laravel.</p>
+
+    <p>Para instalar Livewire, abre tu terminal y navega hasta el directorio de tu aplicación Laravel, luego ejecuta el
+        siguiente comando:</p>
+
+    <pre><code class="bash">composer require livewire/livewire:^3.0@beta</code></pre>
+
+    <p>¡Eso es todo! Si deseas opciones de personalización adicionales, sigue leyendo. De lo contrario, puedes comenzar
+        a usar Livewire directamente.</p>
+
+    <h2>Publicación del archivo de configuración</h2>
+    <p>Livewire es "cero-configuración", lo que significa que puedes usarlo siguiendo las convenciones sin necesidad de
+        configuración adicional. Sin embargo, si es necesario, puedes publicar y personalizar el archivo de
+        configuración de Livewire ejecutando el siguiente comando Artisan:</p>
+
+    <pre><code class="bash">php artisan livewire:publish --config</code></pre>
+
+    <p>Esto creará un nuevo archivo livewire.php en el directorio de configuración de tu aplicación Laravel.</p>
+
+    <h2>Inclusión manual de activos frontend de Livewire</h2>
+    <p>Por defecto, Livewire inyecta los activos de JavaScript y CSS que necesita en cada página que incluye un
+        componente Livewire.</p>
+
+    <p>Si deseas tener más control sobre este comportamiento, puedes incluir manualmente los activos en una página
+        usando las siguientes directivas de Blade:</p>
+
+    <pre><code class="html">&lt;html&gt;
+        &lt;head&gt;
+            ...
+            @livewireStyles
+        &lt;/head&gt;
+        &lt;body&gt;
+            ...
+            @livewireScripts
+        &lt;/body&gt;
+        &lt;/html&gt;</code></pre>
+
+    <p>Al incluir estos activos manualmente en una página, Livewire sabe que no debe inyectar los activos
+        automáticamente.</p>
+
+    <p>Aunque rara vez es necesario, también puedes desactivar el comportamiento de inyección automática de activos de
+        Livewire actualizando la opción de configuración `inject_assets` en el archivo config/livewire.php de tu
+        aplicación:</p>
+
+    <pre><code class="php">'inject_assets' => false,</code></pre>
+
+    <p>Si prefieres forzar a Livewire a inyectar sus activos en una sola página o en múltiples páginas, puedes llamar al
+        siguiente método global desde la ruta actual o desde un proveedor de servicios.</p>
+
+    <pre><code class="php">\Livewire\Livewire::forceAssetInjection();</code></pre>
+
+    <h2>Configuración del punto final de actualización de Livewire</h2>
+    <p>Cada actualización en un componente Livewire envía una solicitud de red al servidor al siguiente punto final:
+        https://example.com/livewire/update</p>
+
+    <p>Esto puede ser un problema para algunas aplicaciones que utilizan localización o multiinquilinato.</p>
+
+    <p>En esos casos, puedes registrar tu propio punto final de la forma que desees, y mientras lo hagas dentro de
+        `Livewire::setUpdateRoute()`, Livewire sabrá que debe usar este punto final para todas las actualizaciones de
+        componentes:</p>
+
+    <pre><code class="php">Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/custom/livewire/update', $handle);
+        });</code></pre>
+
+    <p>Ahora, en lugar de usar /livewire/update, Livewire enviará las actualizaciones de componentes a
+        /custom/livewire/update.</p>
+
+    <p>Dado que Livewire te permite registrar tu propio punto final de actualización, puedes declarar cualquier
+        middleware adicional que desees que Livewire utilice directamente dentro de `setUpdateRoute()`:</p>
+
+    <pre><code class="php">Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/custom/livewire/update', $handle)
+                ->middleware([...]);
+        });</code></pre>
+
+    <h1>Personalización de la URL de activos</h1>
+    <p>Por defecto, Livewire sirve sus activos de JavaScript desde la siguiente URL:
+        https://example.com/livewire/livewire.js. Además, Livewire hace referencia a este activo desde una etiqueta de
+        script de la siguiente manera:</p>
+
+    <pre><code class="html">&lt;script src="/livewire/livewire.js" ...</code></pre>
+
+    <p>Si tu aplicación tiene prefijos de ruta globales debido a la localización o multiinquilinato, puedes registrar tu
+        propio punto final que Livewire debe usar internamente al obtener su JavaScript.</p>
+
+    <p>Para usar un punto final personalizado para los activos de JavaScript, puedes registrar tu propia ruta dentro de
+        `Livewire::setScriptRoute()`:</p>
+
+    <pre><code class="php">Livewire::setScriptRoute(function ($handle) {
+    return Route::get('/custom/livewire/livewire.js', $handle);
+});</code></pre>
+
+    <p>Ahora, Livewire cargará su JavaScript de la siguiente manera:</p>
+
+    <pre><code class="html">&lt;script src="/custom/livewire/livewire.js" ...</code></pre>
+
+    <h2>Agrupar manualmente Livewire y Alpine</h2>
+    <p>Por defecto, Alpine y Livewire se cargan utilizando la etiqueta &lt;script src="livewire.js">, lo que significa
+        que no tienes control sobre el orden en el que se cargan estas bibliotecas. En consecuencia, importar y
+        registrar complementos de Alpine, como se muestra en el siguiente ejemplo, ya no funcionará:</p>
+
+    <pre><code class="javascript">// Advertencia: este fragmento muestra lo QUE NO se debe hacer...
+ 
+import Alpine from 'alpinejs'
+import Clipboard from '@ryangjchandler/alpine-clipboard'
+ 
+Alpine.plugin(Clipboard)
+Alpine.start()</code></pre>
+
+    <p>Para solucionar este problema, debemos informar a Livewire que queremos usar la versión de módulo ESM
+        (ECMAScript) y evitar la inyección de la etiqueta de script livewire.js. Para lograr esto, debemos agregar la
+        directiva @livewireScriptConfig a nuestro archivo de diseño (resources/views/components/layouts/app.blade.php):
+    </p>
+
+    <pre><code class="html">&lt;html&gt;
+&lt;head&gt;
+    <!-- ... -->
+ 
+    @vite(['resources/js/app.js'])
+&lt;/head&gt;
+&lt;body&gt;
+    {{ $slot }}
+ 
+    @livewireScriptConfig 
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <p>Cuando Livewire detecta la directiva @livewireScriptConfig, evitará la inyección de los scripts de Livewire y
+        Alpine. Si estás utilizando la directiva @livewireScripts para cargar manualmente Livewire, asegúrate de
+        eliminarla.</p>
+
+    <p>El paso final es importar Alpine y Livewire en nuestro archivo app.js, lo que nos permite registrar cualquier
+        recurso personalizado y, finalmente, iniciar Livewire y Alpine:</p>
+
+    <pre><code class="javascript">import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
+import Clipboard from '@ryangjchandler/alpine-clipboard'
+ 
+Alpine.plugin(Clipboard)
+ 
+Livewire.start()</code></pre>
+
+    <h1>Guía de actualización</h1>
+    <p>Livewire 3 aún está en versión beta. Aunque intentamos mantener los cambios que rompen la compatibilidad al
+        mínimo, todavía son posibles mientras Livewire 3 se mantenga en beta. Por lo tanto, recomendamos probar a fondo
+        tu aplicación antes de usar Livewire 3 en producción.</p>
+
+    <h2>Herramienta de actualización automatizada</h2>
+    <p>Para ahorrarte tiempo durante la actualización, hemos incluido un comando Artisan para automatizar la mayor parte
+        del proceso de actualización posible.</p>
+
+    <p>Después de instalar Livewire versión 3, ejecuta el siguiente comando y recibirás indicaciones para actualizar
+        automáticamente cada cambio que rompa la compatibilidad:</p>
+
+    <pre><code class="bash">php artisan livewire:upgrade</code></pre>
+
+    <p>Aunque el comando anterior puede actualizar gran parte de tu aplicación, la única forma de garantizar una
+        actualización completa es seguir la guía paso a paso en esta página.</p>
+
+    <h2>Contrátanos para actualizar tu aplicación</h2>
+    <p>Si tienes una gran aplicación de Livewire o simplemente no quieres lidiar con la actualización de la versión 2 a
+        la versión 3, puedes contratarnos para que lo hagamos por ti. Obtén más información sobre nuestro servicio de
+        actualización <a href="#">aquí</a>.</p>
+
+    <h2>Actualizar PHP</h2>
+    <p>Ahora Livewire requiere que tu aplicación esté ejecutándose en PHP versión 8.1 o superior.</p>
+
+    <h2>Actualizar Livewire a la versión 3</h2>
+    <p>Ejecuta el siguiente comando de composer para actualizar la dependencia de Livewire de tu aplicación de la
+        versión 2 a la versión 3:</p>
+
+    <pre><code class="bash">composer require livewire/livewire:3.0.0-beta.1</code></pre>
+
+    <p>El comando anterior te bloqueará a la versión beta actual. Si deseas recibir actualizaciones más frecuentes,
+        puedes cambiar a la restricción de versión más flexible:</p>
+
+    <pre><code class="bash">composer require livewire/livewire:^3.0@beta</code></pre>
+
+    <h2>Compatibilidad de paquetes de Livewire 3</h2>
+    <p>La mayoría de los paquetes principales de Livewire de terceros ya admiten Livewire 3 o están trabajando para
+        admitirlo pronto. Sin embargo, inevitablemente habrá paquetes que tardarán más en lanzar soporte para Livewire
+        3.</p>
+
+    <h2>Limpiar la caché de vistas</h2>
+    <p>Ejecuta el siguiente comando Artisan desde el directorio raíz de tu aplicación para limpiar cualquier vista Blade
+        en caché/compilada y forzar a Livewire a recompilarlas para que sean compatibles con Livewire 3:</p>
+
+    <pre><code class="bash">php artisan view:clear</code></pre>
+
+    <h2>Fusionar nueva configuración</h2>
+    <p>Livewire 3 ha cambiado varias opciones de configuración. Si tu aplicación tiene un archivo de configuración
+        publicado (config/livewire.php), deberás actualizarlo para tener en cuenta los siguientes cambios.</p>
+    <h1>Nueva configuración</h1>
+    <p>Se han introducido las siguientes claves de configuración en la versión 3 de Livewire:</p>
+
+    <pre><code class="php">'legacy_model_binding' => false,
+    
+    'inject_assets' => true,
+    
+    'inject_morph_markers' => true,
+    
+    'navigate' => false,</code></pre>
+
+    <p>Puedes consultar el nuevo archivo de configuración de Livewire en GitHub para obtener descripciones adicionales
+        de las opciones y código que se puede copiar y pegar.</p>
+
+    <h2>Configuración cambiada</h2>
+
+    <p>Se han actualizado los siguientes elementos de configuración con nuevos valores predeterminados:</p>
+
+    <h3>Nuevo espacio de nombres de clase</h3>
+    <p>El espacio de nombres de clase predeterminado de Livewire ha cambiado de 'App\Http\Livewire' a 'App\Livewire'.
+        Puedes mantener el valor de configuración del espacio de nombres anterior; sin embargo, si decides actualizar tu
+        configuración al nuevo espacio de nombres, tendrás que mover los componentes de Livewire a 'app/Livewire':</p>
+
+    <pre><code class="php">'class_namespace' => 'App\\Http\\Livewire', 
+    'class_namespace' => 'App\\Livewire',</code></pre>
+
+    <h3>Nueva ruta de vista de diseño</h3>
+    <p>Cuando renderizas componentes de página completa en la versión 2, Livewire utilizaría
+        'resources/views/layouts/app.blade.php' como el componente de diseño Blade predeterminado.</p>
+
+    <p>Debido a la creciente preferencia de la comunidad por los componentes Blade anónimos, Livewire 3 ha cambiado la
+        ubicación predeterminada a 'resources/views/components/layouts/app.blade.php':</p>
+
+    <pre><code class="php">'layout' => 'layouts.app', 
+    'layout' => 'components.layouts.app',</code></pre>
+
+    <h3>Configuración eliminada</h3>
+    <p>Livewire ya no reconoce los siguientes elementos de configuración.</p>
+
+    <h4>app_url</h4>
+    <p>Si tu aplicación se sirve bajo una URI que no es la raíz, en Livewire 2 podías usar la opción de configuración
+        'app_url' para configurar la URL que Livewire utiliza para hacer solicitudes AJAX.</p>
+
+    <p>En este caso, hemos encontrado que la configuración como una cadena es demasiado rígida. Por lo tanto, Livewire 3
+        ha optado por usar una configuración en tiempo de ejecución. Puedes consultar nuestra documentación sobre cómo
+        configurar el punto final de actualización de Livewire para obtener más información.</p>
+
+    <h4>asset_url</h4>
+    <p>En Livewire 2, si tu aplicación se servía bajo una URI que no es la raíz, utilizabas la opción de configuración
+        'asset_url' para configurar la URL base que Livewire utiliza para servir sus activos de JavaScript.</p>
+
+    <p>Livewire 3 ha optado por una estrategia de configuración en tiempo de ejecución. Puedes consultar nuestra
+        documentación sobre cómo configurar el punto final de activos de script de Livewire para obtener más
+        información.</p>
+
+    <h4>middleware_group</h4>
+    <p>Debido a que Livewire ahora expone una forma más flexible de personalizar su punto final de actualización, se ha
+        eliminado la opción de configuración 'middleware_group'.</p>
+
+    <p>Puedes consultar nuestra documentación sobre cómo personalizar el punto final de actualización de Livewire para
+        obtener más información sobre cómo aplicar middleware personalizado a las solicitudes de Livewire.</p>
+
+    <h4>manifest_path</h4>
+    <p>Livewire 3 ya no utiliza un archivo de manifiesto para la carga automática de componentes. Por lo tanto, la
+        configuración 'manifest_path' ya no es necesaria.</p>
+
+    <h4>back_button_cache</h4>
+    <p>Debido a que Livewire 3 ahora ofrece una experiencia SPA para tu aplicación mediante 'wire:navigate', la
+        configuración 'back_button_cache' ya no es necesaria.</p>
+    <p>En la versión 2, los componentes de Livewire se generaban y reconocían automáticamente bajo el espacio de nombres
+        'App\Http\Livewire'.</p>
+
+    <p>En Livewire 3, este valor predeterminado ha cambiado a 'App\Livewire'.</p>
+
+    <p>Puedes mover todos tus componentes a la nueva ubicación o agregar la siguiente configuración en el archivo de
+        configuración config/livewire.php de tu aplicación:</p>
+
+    <pre><code class="php">'class_namespace' => 'App\\Http\\Livewire',</code></pre>
+
+    <h2>Vista de diseño del componente de página</h2>
+    <p>Cuando renderizas componentes de Livewire como páginas completas usando una sintaxis como la siguiente:</p>
+
+    <pre><code class="php">Route::get('/posts', ShowPosts::class);</code></pre>
+
+    <p>El archivo de diseño Blade utilizado por Livewire para renderizar el componente ha cambiado de
+        resources/views/layouts/app.blade.php a resources/views/components/layouts/app.blade.php:</p>
+
+    <pre><code class="php">resources/views/layouts/app.blade.php 
+    resources/views/components/layouts/app.blade.php</code></pre>
+
+    <p>Puedes mover tu archivo de diseño a la nueva ubicación o aplicar la siguiente configuración dentro del archivo de
+        configuración config/livewire.php de tu aplicación:</p>
+
+    <pre><code class="php">'layout' => 'layouts.app',</code></pre>
+
+    <p>Para obtener más información, consulta la documentación sobre cómo crear y usar un diseño de componente de
+        página.</p>
+
+    <h2>Vinculación de modelos de Eloquent</h2>
+    <p>En Livewire 2, se admitía la vinculación wire:model directamente a propiedades de modelos de Eloquent. Por
+        ejemplo, el siguiente era un patrón común:</p>
+
+    <pre><code class="php">public Post $post;
+    
+    protected $rules = [
+        'post.title' => 'required',
+        'post.description' => 'required',
+    ];
+    <input wire:model="post.title">
+    <input wire:model="post.description"></code></pre>
+
+    <p>En Livewire 3, la vinculación directa a modelos de Eloquent se ha desactivado a favor de usar propiedades
+        individuales o extraer Form Objects.</p>
+
+    <p>Sin embargo, debido a que este comportamiento es muy utilizado en aplicaciones de Livewire, la versión 3 mantiene
+        el soporte para este comportamiento a través de un ítem de configuración en config/livewire.php:</p>
+
+    <pre><code class="php">'legacy_model_binding' => true,</code></pre>
+
+    <p>Al establecer 'legacy_model_binding' en true, Livewire manejará las propiedades de modelos de Eloquent
+        exactamente como lo hacía en la versión 2.</p>
+
+    <h1>AlpineJS</h1>
+    <p>Livewire 3 incluye AlpineJS de forma predeterminada.</p>
+
+    <p>Si incluyes manualmente Alpine en tu aplicación de Livewire, deberás eliminarlo para que no entre en conflicto
+        con la versión incorporada de Livewire.</p>
+
+    <h2>Incluyendo AlpineJS mediante una etiqueta script</h2>
+    <p>Si incluyes Alpine en tu aplicación mediante una etiqueta &lt;script&gt; como la siguiente, puedes eliminarla por
+        completo y Livewire cargará su versión interna en su lugar:</p>
+
+    <pre><code class="html">&lt;script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"&gt;&lt;/script&gt;</code></pre>
+
+    <h2>Incluyendo complementos mediante una etiqueta script</h2>
+    <p>Livewire 3 ahora incluye los siguientes complementos de Alpine por defecto:</p>
+
+    <ul>
+        <li>Collapse</li>
+        <li>Focus</li>
+        <li>Intersect</li>
+        <li>Mask</li>
+        <li>Morph</li>
+        <li>Persist</li>
+    </ul>
+
+    <p>Si ya has incluido alguno de estos complementos en tu aplicación mediante etiquetas &ltscript&gt como se muestra
+        a continuación, puedes eliminarlos junto con el núcleo de Alpine:</p>
+
+    <pre><code class="html">&lt;script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"&gt;&lt;/script&gt;
+<!-- ... --></code></pre>
+
+    <h2>Accediendo al objeto global de Alpine mediante una etiqueta script</h2>
+    <p>Si actualmente estás accediendo al objeto global de Alpine desde una etiqueta script de la siguiente manera:</p>
+
+    <pre><code class="html">&lt;script&gt;
+        document.addEventListener('alpine:init', () => {
+            Alpine.data(...)
+        })
+    &lt;/script&gt;</code></pre>
+
+    <p>Puedes continuar haciéndolo, ya que Livewire incluye e registra internamente el objeto global de Alpine como
+        antes.</p>
+
+    <h2>Incluyendo mediante el paquete JS</h2>
+    <p>Si has incluido Alpine y los complementos relevantes mediante NPM en el paquete JavaScript de tu aplicación de la
+        siguiente manera:</p>
+
+    <pre><code class="javascript">// Advertencia: esto es un fragmento del enfoque de Livewire 2 para incluir Alpine
+ 
+import Alpine from 'alpinejs'
+import intersect from '@alpinejs/intersect'
+ 
+Alpine.plugin(intersect)
+ 
+Alpine.start()</code></pre>
+
+    <p>Puedes eliminarlos por completo porque Livewire incluye Alpine y muchos complementos de Alpine populares por
+        defecto.</p>
+
+    <p>"Livewire V3 (beta) con Laravel Breeze o Laravel Jetstream"</p>
+    <p>Si estás probando la versión beta de Livewire V3 con Laravel Breeze o Laravel JetStream, deberás desactivar
+        Alpine tal como se ha demostrado anteriormente. Además, también puedes eliminar Alpine y cualquier otro
+        complemento de Alpine de las dependencias de tu paquete NPM. Laravel Breeze y Laravel JetStream aún no están
+        listos para Livewire V3 de forma predeterminada.</p>
+
+    <h2>Accediendo a Alpine mediante el paquete JS</h2>
+    <p>Si estás registrando complementos o componentes personalizados de Alpine en el paquete JavaScript de tu
+        aplicación de la siguiente manera:</p>
+
+    <pre><code class="javascript">// Advertencia: esto es un fragmento del enfoque de Livewire 2 para incluir Alpine
+ 
+import Alpine from 'alpinejs'
+import customPlugin from './plugins/custom-plugin'
+ 
+Alpine.plugin(customPlugin)
+ 
+Alpine.start()</code></pre>
+
+    <p>Aún puedes lograr esto importando el módulo ESM central de Livewire en tu paquete y accediendo a Alpine desde
+        allí.</p>
+</body>
+
+</body>
+
+</html>
